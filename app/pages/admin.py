@@ -3,13 +3,25 @@ import streamlit as st
 import sqlite3
 import pandas as pd
 
-senha = st.text_input(
-    "Senha de administrador",
-    type="password"
-)
+if "admin_logado" not in st.session_state:
+    st.session_state.admin_logado = False
 
-if senha != st.secrets["ADMIN_PASSWORD"]:
-    st.warning("Acesso restrito")
+if not st.session_state.admin_logado:
+
+    senha = st.text_input(
+        "Senha de administrador",
+        type="password"
+    )
+
+    if st.button("Entrar"):
+
+        if senha == st.secrets["ADMIN_PASSWORD"]:
+            st.session_state.admin_logado = True
+            st.rerun()
+
+        else:
+            st.error("Senha incorreta")
+
     st.stop()
 
 st.title("Administração")
