@@ -1,6 +1,7 @@
-#app_0.1.py
+#app_0.2.py
 import streamlit as st
 import folium
+import json
 
 from streamlit_folium import st_folium
 
@@ -13,10 +14,10 @@ from src.input.db import init_db, save_report
 # ----------------------------
 # CONFIG
 # ----------------------------
-st.set_page_config(page_title="city_noise", layout="wide")
+st.set_page_config(page_title="city noise", layout="centered")
 init_db()
 
-st.title("📍 city_noise - Coleta de Ruído Urbano")
+st.title("C I T Y   N O I S E S")
 
 # ----------------------------
 # ESTADO
@@ -30,7 +31,8 @@ if "address" not in st.session_state:
 # ----------------------------
 # ETAPA 1 - LOCALIZAÇÃO
 # ----------------------------
-st.header("1. Localização da fonte do ruído")
+st.header("1. Localização")
+st.caption("Informe onde o ruído ocorre.")
 
 option = st.radio(
     "Como deseja informar a localização?",
@@ -53,9 +55,10 @@ if option == "Digite o endereço":
 
 # ---- MAPA ----
 else:
-    m = folium.Map(location=[-1.4558, -48.4902], zoom_start=12)
+    m = folium.Map(location=[-1.4558, -48.4902], tiles="OpenStreetMap",
+        zoom_start=14)
 
-    map_data = st_folium(m, height=400, width=700)
+    map_data = st_folium(m, height=300, width=None)
 
     if map_data and map_data.get("last_clicked"):
         lat = map_data["last_clicked"]["lat"]
@@ -104,13 +107,15 @@ if st.session_state.get("step") == "form":
 
     frequencia = st.selectbox(
         "Frequência",
-        ["Todos os dias", "Finais de semana", "Ocasionalmente"]
+        ["Todos os dias","seg-sex","Finais de semana", "Ocasionalmente"]
     )
 
-    periodo = st.selectbox(
+    periodo = st.multiselect(
         "Período",
         ["Manhã", "Tarde", "Noite", "Madrugada"]
     )
+
+
 
     duracao = st.slider("Duração (horas)", 0.0, 15.0, 1.0)
 
@@ -121,12 +126,15 @@ if st.session_state.get("step") == "form":
 
     db = st.slider("Estimativa de dB", 0, 150, 60)
 
-    observacoes = st.text_area("Observações")
+    observacoes =  st.text_area(
+    "Observações",
+    height=120
+)
 
     # ----------------------------
     # SALVAR
     # ----------------------------
-    if st.button("Salvar ocorrência"):
+    if st.button("📩 Registrar ocorrência",use_container_width=True):
 
         lat, lon = st.session_state.location
 
@@ -136,7 +144,7 @@ if st.session_state.get("step") == "form":
             "address": st.session_state.address,
             "origem": origem,
             "frequencia": frequencia,
-            "periodo": periodo,
+            "periodo": json.dumps(periodo),
             "duracao": duracao,
             "incomodo": incomodo,
             "db": db,
