@@ -1,6 +1,12 @@
+#admin.py
 import streamlit as st
 import sqlite3
 import pandas as pd
+
+senha = st.text_input(
+    "Senha de administrador",
+    type="password"
+)
 
 if senha != st.secrets["ADMIN_PASSWORD"]:
     st.warning("Acesso restrito")
