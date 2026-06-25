@@ -1,0 +1,23 @@
+# Diretórios temporários
+**/.virtual_documents/
+**/.ipynb_checkpoints/
+**/.devcontainer/
+**/__pycache__/
+.ipynb_checkpoints/
+.virtual_documents/
+__pycache__/
+**/.idea/
+
+.streamlit/secrets.toml
+.streamlit/*
+
+#dados
+data/raw/city_noise.db
+
+# Pastas de configuração do Streamlit
+Principal/.streamlit/
+sandbox/.streamlit/
+
+# Credenciais
+config/*.json
+
