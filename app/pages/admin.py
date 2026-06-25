@@ -2,6 +2,10 @@ import streamlit as st
 import sqlite3
 import pandas as pd
 
+if senha != st.secrets["ADMIN_PASSWORD"]:
+    st.warning("Acesso restrito")
+    st.stop()
+
 st.title("Administração")
 
 conn = sqlite3.connect("data/city_noise.db")
