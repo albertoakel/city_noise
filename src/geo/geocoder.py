@@ -15,6 +15,7 @@ def geocode_address(address: str):
         query = f"{address}, Belém, Pará, Brasil"
         time.sleep(1)
         location = geolocator.geocode(query)
+        print("DEBUG LOCATION:", location)
         if location:
             return {
                 "lat": location.latitude,
