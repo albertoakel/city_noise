@@ -7,7 +7,8 @@ geolocator = Nominatim(user_agent="city_noise_app")
 def geocode_address(address: str):
     """Converte endereço em coordenadas"""
     try:
-        location = geolocator.geocode(address)
+        query = f"{address}, Belém, Pará, Brasil"
+        location = geolocator.geocode(query)
         if location:
             return {
                 "lat": location.latitude,
