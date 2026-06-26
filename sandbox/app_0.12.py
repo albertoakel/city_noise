@@ -17,7 +17,7 @@ from src.input.db import init_db, save_report
 st.set_page_config(page_title="city noise", layout="centered")
 init_db()
 
-st.title("CITY - NOISES  0.13" )
+st.title("C I T Y   N O I S E S")
 
 # ----------------------------
 # ESTADO
@@ -27,95 +27,49 @@ if "location" not in st.session_state:
 
 if "address" not in st.session_state:
     st.session_state.address = None
-
-# ----------------------------
-# ESTADO
-# ----------------------------
-
-if "location" not in st.session_state:
-    st.session_state.location = None
-
-if "address" not in st.session_state:
-    st.session_state.address = None
-
-if "map_center" not in st.session_state:
-    st.session_state.map_center = [-1.4558, -48.4902]  # Belém
-
 
 # ----------------------------
 # ETAPA 1 - LOCALIZAÇÃO
 # ----------------------------
-
 st.header("1. Localização")
 st.caption("Informe onde o ruído ocorre.")
 
-address_input = st.text_input(
-    "Digite um endereço (opcional)"
+option = st.radio(
+    "Como deseja informar a localização?",
+    ["Digite o endereço", "Selecionar no mapa"]
 )
 
-if st.button("Buscar endereço"):
+# ---- ENDEREÇO ----
+if option == "Digite o endereço":
+    address_input = st.text_input("Digite o endereço (ex: Av. Almirante Barroso, 2500, Belém)")
 
-    result = geocode_address(address_input)
+    if st.button("Buscar endereço"):
+        result = geocode_address(address_input)
 
-    if result:
+        if result:
+            st.session_state.location = (result["lat"], result["lon"])
+            st.session_state.address = result["address"]
+            st.success(result["address"])
+        else:
+            st.error("Endereço não encontrado.")
 
-        st.session_state.location = (
-            result["lat"],
-            result["lon"]
-        )
+# ---- MAPA ----
+else:
+    m = folium.Map(location=[-1.4558, -48.4902], tiles="OpenStreetMap",
+        zoom_start=14)
 
-        st.session_state.address = result["address"]
+    map_data = st_folium(m, height=300, width=None)
 
-        st.session_state.map_center = [
-            result["lat"],
-            result["lon"]
-        ]
+    if map_data and map_data.get("last_clicked"):
+        lat = map_data["last_clicked"]["lat"]
+        lon = map_data["last_clicked"]["lng"]
 
-        st.success("Endereço encontrado.")
+        st.session_state.location = (lat, lon)
 
-    else:
-        st.error("Endereço não encontrado.")
+        addr = reverse_geocode(lat, lon)
+        st.session_state.address = addr
 
-
-# ----------------------------
-# MAPA
-# ----------------------------
-
-m = folium.Map(
-    location=st.session_state.map_center,
-    tiles="OpenStreetMap",
-    zoom_start=16
-)
-if st.session_state.location:
-
-    lat, lon = st.session_state.location
-
-    folium.Marker(
-        [lat, lon],
-        tooltip="Localização selecionada",
-        icon=folium.Icon(color="red")
-    ).add_to(m)
-
-map_data = st_folium(
-    m,
-    height=300,
-    width=None
-)
-
-if map_data and map_data.get("last_clicked"):
-
-    lat = map_data["last_clicked"]["lat"]
-    lon = map_data["last_clicked"]["lng"]
-
-    st.session_state.location = (lat, lon)
-
-    st.session_state.map_center = [lat, lon]
-
-    addr = reverse_geocode(lat, lon)
-
-    st.session_state.address = addr
-
-   # st.success("Localização atualizada.")
+        #st.success(addr)
 
 # ----------------------------
 # CONFIRMAÇÃO
@@ -123,7 +77,7 @@ if map_data and map_data.get("last_clicked"):
 if st.session_state.location and st.session_state.address:
     st.subheader("📌 Confirmar localização")
 
-    st.success(st.session_state.address)
+    st.info(st.session_state.address)
 
     if st.button("Confirmar e continuar"):
         st.session_state.step = "form"

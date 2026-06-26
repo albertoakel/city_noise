@@ -17,7 +17,7 @@ from src.input.db import init_db, save_report
 st.set_page_config(page_title="city noise", layout="centered")
 init_db()
 
-st.title("CITY - NOISES  0.13" )
+st.title("C I T Y - N O I S E S  03" )
 
 # ----------------------------
 # ESTADO
