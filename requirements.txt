@@ -3,3 +3,4 @@ geopy==2.4.1
 pandas==3.0.3
 streamlit==1.58.0
 streamlit_folium==0.27.2
+requests

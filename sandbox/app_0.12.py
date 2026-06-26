@@ -8,7 +8,7 @@ from streamlit_folium import st_folium
 from setup import setup_path
 setup_path()
 
-from src.geo.geocoder import geocode_address, reverse_geocode
+from src.geogeocoder_photon import geocode_address, reverse_geocode
 from src.input.db import init_db, save_report
 
 # ----------------------------

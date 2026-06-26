@@ -1,4 +1,5 @@
 #geocoder.py
+#nomainatim
 from geopy.geocoders import Nominatim
 import time
 
@@ -14,7 +15,7 @@ def geocode_address(address: str):
     try:
         #query = f"{address}, Belém, Pará, Brasil"
         #time.sleep(1)
-        location = geolocator.geocode()
+        location = geolocator.geocode(address)
         #print("DEBUG LOCATION:", location)
         if location:
             return {
