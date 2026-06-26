@@ -1,0 +1,12 @@
+[theme]
+# Cor do fundo principal
+backgroundColor = "#f9f9f9ff"
+
+# Cor da barra lateral (Sidebar) e de inputs
+secondaryBackgroundColor = "#ccccccff"
+
+# Cor do texto
+textColor = "#1a1a1aff"
+
+# Cor dos botões e destaques
+primaryColor = "#FF4B4B"
