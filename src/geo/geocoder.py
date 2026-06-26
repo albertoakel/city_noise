@@ -23,7 +23,7 @@ def geocode_address(address: str):
             }
         return None
     except Exception as e:
-    print("Geocode error (geocode):", e)
+        print("Geocode error (geocode):", e)
         return None
 
 
@@ -36,5 +36,5 @@ def reverse_geocode(lat: float, lon: float):
             return location.address
         return None
     except Exception as e:
-    print("Geocode error (geocode):", e)
+        print("Geocode error (geocode):", e)
         return None
