@@ -1,4 +1,4 @@
-#app_0.12.py
+#app_0.1.py  vs0.14
 import streamlit as st
 import folium
 import json
@@ -9,7 +9,11 @@ from setup import setup_path
 setup_path()
 
 from src.geo.geocoder_photon import geocode_address, reverse_geocode
-from src.input.db import init_db, save_report
+#from src.input.db import init_db, save_report
+from src.input.db import init_db
+from src.input.repository import save_report
+
+
 
 # ----------------------------
 # CONFIG
@@ -185,7 +189,7 @@ if st.session_state.get("step") == "form":
 
     frequencia = st.selectbox(
         "Frequência",
-        ["Todos os dias","seg-sex","Finais de semana", "Ocasionalmente"]
+        ["Hoje","Todos os dias","seg-sex","Finais de semana", "Ocasionalmente"]
     )
 
     periodo = st.multiselect(
