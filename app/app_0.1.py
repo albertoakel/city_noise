@@ -21,7 +21,10 @@ from src.input.repository import save_report
 st.set_page_config(page_title="city noise", layout="centered")
 init_db()
 
+
+st.image("../image/capa3.png", use_container_width=True)
 st.title("CITY - NOISES  0.15" )
+
 
 # ----------------------------
 # ESTADO
