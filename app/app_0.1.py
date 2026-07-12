@@ -85,13 +85,15 @@ st.markdown(
             opacity: 0.9;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
         ">
-            Mapeamento e monitoramento de poluição sonora urbana
+            monitoramento de poluição sonora
         </p>
     </div>
     """,
     unsafe_allow_html=True
 )
-
+# ----------------------------
+# FIM CONFIGURAÇÃO DA CAPA
+# ----------------------------
 
 # ----------------------------
 # ESTADO
