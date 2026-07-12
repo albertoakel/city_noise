@@ -22,8 +22,75 @@ st.set_page_config(page_title="city noise", layout="centered")
 init_db()
 
 
-st.image("app/capa3.png", use_container_width=True)
-st.title("CITY - NOISES  0.15" )
+#st.image("app/capa3.png", use_container_width=True) #streamlit
+# st.image("capa3.png", use_container_width=True) #local
+#
+# st.title("CITY - NOISES  0.15" )
+
+# ----------------------------
+# CONFIGURAÇÃO DA CAPA COM IMAGEM LOCAL + BASE64
+# ----------------------------
+import base64
+# 1. Encontra o caminho absoluto da imagem (ajustado para o mesmo diretório do script)
+caminho_da_imagem = "app/capa3.png"
+
+# 2. Função para transformar a imagem em formato que o HTML entenda
+def obter_imagem_base64(caminho):
+    with open(caminho, "rb") as arquivo_imagem:
+        dados_da_imagem = arquivo_imagem.read()
+    return base64.b64encode(dados_da_imagem).decode()
+
+try:
+    # 3. Codifica a imagem
+    imagem_base64 = obter_imagem_base64(caminho_da_imagem)
+    imagem_url = f"data:image/png;base64,{imagem_base64}"
+except FileNotFoundError:
+    # Fallback caso a imagem suma por algum motivo
+    imagem_url = ""
+
+# 4. Renderiza o HTML com o título sobreposto
+st.markdown(
+    f"""
+    <div style="
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{imagem_url}');
+        background-color: #262730; /* Cor de fundo caso a imagem falhe */
+        background-size: cover;
+        background-position: center;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    ">
+        <h1 style="
+            margin: 0; 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            font-size: 3rem; 
+            font-weight: 800; 
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+        ">
+            CITY - NOISES 0.15
+        </h1>
+        <p style="
+            margin: 10px 0 0 0; 
+            font-size: 1.2rem; 
+            font-weight: 300;
+            opacity: 0.9;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+        ">
+            Mapeamento e monitoramento de poluição sonora urbana
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ----------------------------
