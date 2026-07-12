@@ -76,7 +76,7 @@ st.markdown(
             letter-spacing: 2px;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
         ">
-            CITY - NOISES 0.15
+            CITY- NOISES vs.0.15
         </h1>
         <p style="
             margin: 10px 0 0 0; 
