@@ -22,7 +22,7 @@ st.set_page_config(page_title="city noise", layout="centered")
 init_db()
 
 
-st.image("capa3.png", use_container_width=True)
+st.image("app/capa3.png", use_container_width=True)
 st.title("CITY - NOISES  0.15" )
 
 
