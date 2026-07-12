@@ -32,7 +32,7 @@ init_db()
 # ----------------------------
 import base64
 # 1. Encontra o caminho absoluto da imagem (ajustado para o mesmo diretório do script)
-caminho_da_imagem = "app/capa3.png"
+caminho_da_imagem = "app/capa3.png" #streamlit
 
 # 2. Função para transformar a imagem em formato que o HTML entenda
 def obter_imagem_base64(caminho):
@@ -71,7 +71,7 @@ st.markdown(
         <h1 style="
             margin: 0; 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            font-size: 3rem; 
+            font-size: 2rem; 
             font-weight: 800; 
             letter-spacing: 2px;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
@@ -85,7 +85,7 @@ st.markdown(
             opacity: 0.9;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
         ">
-            monitoramento de poluição sonora
+            Mapeamento e monitoramento de poluição sonora urbana
         </p>
     </div>
     """,
